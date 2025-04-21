@@ -1,6 +1,6 @@
 # MorphoParse
 
-**MorphoParse** is a Python package and command-line tool for parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis.
+**A Python package and command-line tool for parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis**
 
 ## ✨ Features
 
