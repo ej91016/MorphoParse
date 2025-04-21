@@ -1,4 +1,21 @@
-*.pyc
+# Python
 __pycache__/
+*.py[cod]
+*.egg-info/
 *.log
+
+# Output artifacts
+*_clean.*
+*_remap.*
+*.models
+*_weights.txt
+
+# System
 .DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Test/Examples
+example_output/

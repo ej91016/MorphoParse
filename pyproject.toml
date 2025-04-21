@@ -1,0 +1,21 @@
+[project]
+name = "MorphoParse"
+version = "1.0.0"
+description = "Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis."
+authors = [
+    { name = "EJ Huang", email = "ejhuang91016@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+dependencies = ["biopython"]
+
+[project.scripts]
+morphoparse = "morphoparse.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."] 
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

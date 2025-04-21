@@ -32,6 +32,14 @@ Install via pip:
 pip install biopython
 ```
 
+## 📦 Installation
+
+Install directly from GitHub:
+
+```bash
+pip install git+https://github.com/ej91016/MorphoParse.git
+```
+
 ## ⚙️ Command-Line Options
 
 | Flag | Description |
@@ -53,16 +61,18 @@ pip install biopython
 ## 🧪 Example Usage
 
 ```bash
-python -m morphoparse -i examples/example.nexus -f nexus -g phylip -r -a -p
+morphoparse -i example.nexus -f nexus -g phylip -r -a -p
 ```
 
 This will:
-- Parse the **NEXUS** file: example.nexus
-- Produce the outputs in examples/:
-  - example_clean.phy          # Cleaned and remapped data
-  - example_remap.txt          # Remapping details
-  - example_raxml.models       # ASC-corrected partitions
-  - example_paup_weights.txt   # PAUP* weights
+- Parse the **NEXUS** file: `example.nexus`
+- Produce output files in the current directory:
+  - `example_clean.phy`          – Cleaned and remapped data
+  - `example_remap.txt`          – Remapping details
+  - `example_raxml.models`       – ASC-corrected partitions
+  - `example_paup_weights.txt`   – PAUP* weights
+
+> **📝 Note:** Example data can be found in the [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples) directory of the [GitHub repository](https://github.com/ej91016/MorphoParse).
 
 ---
 
