@@ -94,7 +94,7 @@ def run_pipeline(args):
     reorder_states = args.remap or args.reorder
 
     if remove_missing or remove_uninformative or reorder_states:
-        logfile = f"{args.output}_remap.log"
+        logfile = f"{args.output}_remap.txt"
         records = remap_sparse_states(
             records, logfile,
             remove_missing,

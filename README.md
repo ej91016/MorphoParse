@@ -60,7 +60,7 @@ This will:
 - Parse the **NEXUS** file: example.nexus
 - Produce the outputs in examples/:
   - example_clean.phy          # Cleaned and remapped data
-  - example_remap.log          # Remapping details
+  - example_remap.txt          # Remapping details
   - example_raxml.models       # ASC-corrected partitions
   - example_paup_weights.txt   # PAUP* weights
 
