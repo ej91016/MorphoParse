@@ -1,0 +1,7 @@
+*.pyc
+__pycache__/
+*.log
+*.nex
+*.fasta
+*.phy
+.DS_Store

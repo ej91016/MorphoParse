@@ -1,0 +1,16 @@
+#NEXUS
+BEGIN DATA;
+  DIMENSIONS NTAX=4 NCHAR=18;
+  FORMAT DATATYPE=STANDARD SYMBOLS="0123456789" MISSING=? GAP=- INTERLEAVE;
+MATRIX
+"E  J"       0(12)3  2[45]6  ?-9
+Fer~~nando!  (23)24  52(67)  -8?
+J@ke         91(01)  -1(23)  45[56]
+Wi||         12(789)  ??(01)  2-3
+
+"E  J"       21(456)  17[89]  ---
+Fer~~nando!  02(12)  33(45)  6??
+J@ke         54(789)  12[012]  -3-
+Wi||         45(56)  71(89)  11(012)
+;
+END;
