@@ -83,13 +83,13 @@ This will:
 **Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
 
 | Analysis Type | Remap | Remove Mono | Remove Missing | ASC | Partition File | Notes | Tools |
-|---------------|--------|--------------|----------------|-----|----------------|-------|-------|
+|-------------------|--------|--------------|----------------|-----|----------------|-------|-------|
 | SSM (invariant) | ⭐ | ✘ | ✅ | ✘ | ✘ | Default model | All |
 | SSM  | ⭐ | ✅ | ✅ | ✅ | ✘ | No invariant sites allowed | All |
 | SSA (invariant) | ⭐ | ✘ | ✅ | ✘ | ✅ | IQ-TREE accepts RAxML-style | All |
 | SSA | ⭐ | ✅ | ✅ | ✅ | ✅ | No invariant sites allowed | All |
-| FS (padding) | ✘ | 🔘 | ✅ | ✘ | ✘ | Incompatible with ASC | All |
-| FS (override) | ⭐ | 🔘 | ✅ | 🔘 | ✘ | Specify with MULTI`x`_MK| RAxML-NG |
+| FS (padding) | ✘ (destroy padding) | 🔘 | ✅ | ✘ | ✘ | Incompatible with ASC | All |
+| FS (override) | ⭐ | 🔘 | ✅ | 🔘 | 🔘 | Specify with MULTI`x`_MK| RAxML-NG |
 
 ---
 

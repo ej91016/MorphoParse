@@ -31,15 +31,13 @@ def remap_sparse_states(records, output_log_file, remove_missing=True, remove_un
         SeqRecord(Seq("".join(buf)), id=records[i].id)
         for i, buf in enumerate(char_buffers)
     ]
-
-    with open(output_log_file, 'w') as f:
-        for site, mapping in remapped_sites:
-            mapping_str = ', '.join(f"{k}->{v}" for k, v in mapping.items())
-            f.write(f"Site {site}: {mapping_str}\n")
-        if removed_sites:
-            f.write(f"\nRemoved {len(removed_sites)} site(s) with no data or single state: {', '.join(map(str, removed_sites))}\n")
-
     if remapped_sites or removed_sites:
+        with open(output_log_file, 'w') as f:
+            for site, mapping in remapped_sites:
+                mapping_str = ', '.join(f"{k}->{v}" for k, v in mapping.items())
+                f.write(f"Site {site}: {mapping_str}\n")
+            if removed_sites:
+                f.write(f"\nRemoved {len(removed_sites)} site(s) with no data or single state: {', '.join(map(str, removed_sites))}\n")
         print(f"Remapping log written to: {output_log_file}")
     else:
         print("No remapping or column removal was necessary.")
