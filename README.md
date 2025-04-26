@@ -73,14 +73,17 @@ This will:
   - `example_paup_weights.txt`   – PAUP* weights
 
 > **📝 Note:** Example data can be found in the 
-[`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples) 
-directory of the [GitHub repository](https://github.com/ej91016/MorphoParse).
+[`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples).
 
 ---
 
 ## 📊 MorphoParse Flag Recommendations by Analysis Type
 
-(paper describing analysis type coming soon...)
+- **SSM**: State-space-misspecified (a special case of False-space)
+- **SSA**: State-space-aware (the "correct" setup when doing just one analysis)
+- **False-space**: Purposely misspecify the state space
+
+Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details.
 
 **Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
 
@@ -99,8 +102,8 @@ directory of the [GitHub repository](https://github.com/ej91016/MorphoParse).
 
 If you use **MorphoParse**, please cite:
 
-> EJ Huang (2025). State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike. 
-bioRxiv. https://doi.org/10.1101/2025.04.22.650124
+> EJ Huang (2025). *State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike*. 
+bioRxiv. [https://doi.org/10.1101/2025.04.22.650124](https://doi.org/10.1101/2025.04.22.650124)
 
 ## 🪪 License
 
