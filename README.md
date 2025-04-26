@@ -97,8 +97,7 @@ This will:
 
 If you use **MorphoParse**, please cite:
 
-> EJ Huang (2025). *MorphoParse: a script for cleaning and partitioning morphological matrices*. GitHub. https://github.com/ej91016/MorphoParse  
-> (Preprint coming soon)
+> EJ Huang (2025). State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike. bioRxiv. https://doi.org/10.1101/2025.04.22.650124
 
 ## 🪪 License
 
