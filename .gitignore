@@ -17,5 +17,11 @@ __pycache__/
 .vscode/
 .idea/
 
-# Test/Examples
-example_output/
+# development
+output/
+
+# Ignore virtual environments
+.venv/
+venv/
+ENV/
+env/
