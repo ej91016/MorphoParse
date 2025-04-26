@@ -8,10 +8,9 @@ license = "GPL-3.0-or-later"
 packages = [
     { include = "morphoparse", from = "src" }
 ]
-dependencies = [
-    "python >=3.7",
-    "biopython"
-]
+[tool.poetry.dependencies]
+python = ">=3.7"
+biopython = "*"
 
 [tool.poetry.scripts]
 morphoparse = "morphoparse.__main__:main"
