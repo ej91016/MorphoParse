@@ -73,7 +73,7 @@ This will:
   - `example_paup_weights.txt`   – PAUP* weights
 
 > **📝 Note:** Example data can be found in the 
-[`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples).
+[`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
 
 ---
 
@@ -83,7 +83,7 @@ This will:
 - **SSA**: State-space-aware (the "correct" setup when doing just one analysis)
 - **False-space**: Purposely misspecify the state space
 
-Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details.
+Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details
 
 **Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
 
@@ -107,4 +107,4 @@ bioRxiv. [https://doi.org/10.1101/2025.04.22.650124](https://doi.org/10.1101/202
 
 ## 🪪 License
 
-This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)
