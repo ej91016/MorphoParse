@@ -72,7 +72,9 @@ This will:
   - `example_raxml.models`       – ASC-corrected partitions
   - `example_paup_weights.txt`   – PAUP* weights
 
-> **📝 Note:** Example data can be found in the [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples) directory of the [GitHub repository](https://github.com/ej91016/MorphoParse).
+> **📝 Note:** Example data can be found in the 
+[`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples) 
+directory of the [GitHub repository](https://github.com/ej91016/MorphoParse).
 
 ---
 
@@ -97,7 +99,8 @@ This will:
 
 If you use **MorphoParse**, please cite:
 
-> EJ Huang (2025). State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike. bioRxiv. https://doi.org/10.1101/2025.04.22.650124
+> EJ Huang (2025). State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike. 
+bioRxiv. https://doi.org/10.1101/2025.04.22.650124
 
 ## 🪪 License
 
