@@ -16,11 +16,11 @@
   - RAxML
   - RAxML-NG
   - IQ-TREE
-- Supports **state-space-aware weighting (SSA)** for:
-  - **PAUP\***
-  - **TNT**
+- Generates **state-space-aware weighting (SSA)**:
+  - Supports **PAUP\*** and **TNT**
   - `SSA weight = ln(r)`, where `r` = number of observed states
-    - Implemented as `round(10 × ln(r))` here, as **PAUP\*** and **TNT** only accept integer weights
+  - Implemented as `round(10 × ln(r))` to provide integer weights compatible with both programs
+  - See [Huang 2025, preprint](https://doi.org/10.1101/2025.04.22.650124) for rationale
 
 ## 🧱 Requirements
 
