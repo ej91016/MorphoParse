@@ -21,7 +21,7 @@
   - Supports **PAUP\*** and **TNT**
     - Weights are implemented as `round(10 × ln(r))`
     - both programs accept only integer weights
-  - See [Huang 2025, preprint](https://doi.org/10.1101/2025.04.22.650124) for rationale
+  - See [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for rationale
 
 ## 🧱 Requirements
 
