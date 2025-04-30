@@ -19,7 +19,8 @@
 - Supports **state-space-aware weighting (SSA)** for:
   - **PAUP\***
   - **TNT**
-  - Uses `SSA weight = round(10 × ln(r))`, where `r = number of observed states`
+  - `SSA weight = ln(r)`, where `r` = number of observed states
+    - Implemented as `round(10 × ln(r))` here, as **PAUP\*** and **TNT** only accept integer weights
 
 ## 🧱 Requirements
 
