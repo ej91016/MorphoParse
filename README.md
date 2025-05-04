@@ -111,8 +111,10 @@ Example data can be found in [`examples/`](https://github.com/ej91016/MorphoPars
 - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
   - Defines partitions & linked matrix files
   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
-- IQ-TREE may fail with ASC correction on small (partitioned) datasets.
-  - *Fix*: remove ASC from partitions with few characters.
+- If IQ-TREE end prematurely after showing initial log-Likelihood:
+  - IQ-TREE appears to have trouble with `MK+ASC` (with or without `+G`)
+  - *Fix (for now)*: Remove `+ASC` from the models (or avoid `-a` in MorphoParse)
+  - Alternatively, consider using RAxML or RAxML-NG
 
 ---
 
