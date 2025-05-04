@@ -1,6 +1,6 @@
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
 def remap_sparse_states(records, output_log_file, remove_missing=True, remove_uninformative=True, reorder_states=True):
-    from Bio.SeqRecord import SeqRecord
-    from Bio.Seq import Seq
 
     nchar = len(records[0].seq)
     char_buffers = [[] for _ in records]

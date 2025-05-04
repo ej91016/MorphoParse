@@ -1,7 +1,3 @@
-"""
-Shared utilities for taxon name normalization, sequence cleanup,
-state counting, and range collapsing.
-"""
 import re
 
 def normalize_taxon_name(name):

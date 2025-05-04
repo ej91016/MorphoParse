@@ -63,8 +63,9 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 | `-t`, `--tnt`        | Generate SSA weights for TNT                                        |
 | `--version`          | Show version info and exit                                          |
 
-## 🥪 Example Usage
+## 🥪 Usage
 
+Example usage:
 ```bash
 morphoparse -i example.nexus -f nexus -g phylip -r -a -p
 ```
@@ -78,15 +79,18 @@ This will:
   - `example_remap.txt`          – Remapping details
   - `example_raxml.models`       – ASC-corrected partitions
   - `example_paup_weights.txt`   – PAUP\* weights
+<br><br>
 
-> 📝 Note: Example data can be found in the
-> [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
+Example data can be found in [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
+<br><br>
 
-> 📝 Note: For correct state space handling in IQ-TREE:
-> - Choose `PHYLIP` or `NEXUS` as output format
-> - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
->   - Defines partitions & linked matrix files
->   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
+📝 Note: Correct state space handling in IQ-TREE
+- Choose `PHYLIP` or `NEXUS` as output format
+- Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
+  - Defines partitions & linked matrix files
+  - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
+- If analysis stop prematurely, remove ASC from the model
+  - This is not a partition issue but a IQ-TREE issue, likely due to small dataset
 
 ---
 
