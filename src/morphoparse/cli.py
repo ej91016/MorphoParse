@@ -23,8 +23,8 @@ def get_args():
     
     parser.add_argument("-a", "--asc", action="store_true", 
         help="Apply ASC correction (recommended)")
-    parser.add_argument("-n", "--raxmlng", action="store_true", 
-        help="Generate partitions for RAxML-NG (default: RAxML)")
+    parser.add_argument("-s", "--software", default='raxml', choices=['raxml','raxmlng','iqtree'],
+        help="Indicate program to format for (default: RAxML)")
 
     parser.add_argument("-p", "--paup", action="store_true", 
         help="Generate SSA weight scheme for PAUP*")

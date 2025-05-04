@@ -6,9 +6,11 @@
 
 - Supports **FASTA**, **PHYLIP**, **NEXUS**, and **TNT** input formats
 - Removes **polymorphic encodings** (e.g., `{01}`, `[0,1]`, `(0/1)`) and replaces them with `?`
-  - These cause errors in **RAxML** and are ignored in **IQ-TREE 2**
+
+  - These cause errors in **RAxML** and are ignored in **IQ-TREE**
 - Normalizes taxon names by stripping quotes and replacing spaces/symbols with `_`
 - Optional **state remapping** (e.g., `0,1,4,5` → `0,1,2,3`)
+
   - Required by some tools (e.g., **RAxML**)
 - Optional removal of uninformative or missing-only characters
 - Outputs clean alignment in selected format
@@ -19,8 +21,9 @@
 - Generates **state-space-aware weighting (SSA)**:
   - `SSA weight = ln(r)`, where `r` = number of observed states
   - Supports **PAUP\*** and **TNT**
+
     - Weights are implemented as `round(10 × ln(r))`
-    - both programs accept only integer weights
+    - Both programs accept only integer weights
   - See [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for rationale
 
 ## 🧱 Requirements
@@ -44,59 +47,67 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 
 ## ⚙️ Command-Line Options
 
-| Flag | Description |
-|------|-------------|
-| `-i`, `--input` | Input morphological matrix (required) |
-| `-o`, `--output` | Output prefix (default: input filename without extension) |
-| `-f`, `--format` | Input format: `fasta`, `phylip`, `nexus`, `tnt` (default: `phylip`) |
-| `-g`, `--out_format` | Output format (default: same as input) |
-| `-r`, `--remap` | Enable all of: remove missing, remove mono, reorder states |
-| `--remove-missing` | Remove characters with only `?` or `-` |
-| `--remove-mono` | Remove characters with only one unambiguous state |
-| `--reorder` | Renumber states to 0,1,... per site |
-| `-a`, `--asc` | Apply ASC correction to partition models |
-| `-n`, `--raxmlng` | Use RAxML-NG partition format (default: RAxML) |
-| `-p`, `--paup` | Generate SSA weights for PAUP\* |
-| `-t`, `--tnt` | Generate SSA weights for TNT |
-| `--version` | Show version info and exit |
+| Flag                 | Description                                                         |
+| -------------------- | ------------------------------------------------------------------- |
+| `-i`, `--input`      | Input morphological matrix (required)                               |
+| `-o`, `--output`     | Output prefix (default: input filename without extension)           |
+| `-f`, `--format`     | Input format: `fasta`, `phylip`, `nexus`, `tnt` (default: `phylip`) |
+| `-g`, `--out_format` | Output format (default: same as input)                              |
+| `-r`, `--remap`      | Enable all of: remove missing, remove mono, reorder states          |
+| `--remove-missing`   | Remove characters with only `?` or `-`                              |
+| `--remove-mono`      | Remove characters with only one unambiguous state                   |
+| `--reorder`          | Renumber states to 0,1,... per site                                 |
+| `-a`, `--asc`        | Apply ASC correction to partition models                            |
+| `-s`, `--software`   | Software: `raxml`,`raxmlng`,`iqtree` (default: `raxml`)             |
+| `-p`, `--paup`       | Generate SSA weights for PAUP\*                                     |
+| `-t`, `--tnt`        | Generate SSA weights for TNT                                        |
+| `--version`          | Show version info and exit                                          |
 
-## 🧪 Example Usage
+## 🥪 Example Usage
 
 ```bash
 morphoparse -i example.nexus -f nexus -g phylip -r -a -p
 ```
 
 This will:
+
 - Parse the **NEXUS** file: `example.nexus`
 - Produce output files in the current directory:
+
   - `example_clean.phy`          – Cleaned and remapped data
   - `example_remap.txt`          – Remapping details
   - `example_raxml.models`       – ASC-corrected partitions
-  - `example_paup_weights.txt`   – PAUP* weights
+  - `example_paup_weights.txt`   – PAUP\* weights
 
-> **📝 Note:** Example data can be found in the 
-[`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
+> 📝 Note: Example data can be found in the
+> [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
+
+> 📝 Note: For correct state space handling in IQ-TREE:
+> - Choose `PHYLIP` or `NEXUS` as output format
+> - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
+>   - Defines partition & linked matrix files
+>   - Assume IQ-TREE will be called from the same directory as MorphoParse—edit paths if needed
 
 ---
 
 ## 📊 MorphoParse Flag Recommendations by Analysis Type
 
-- **SSM**: State-space-misspecified (a special case of False-space)
 - **SSA**: State-space-aware (the "correct" setup when doing just one analysis)
+- **SSM**: State-space-misspecified (a special case of False-space)
 - **False-space**: Purposely misspecify the state space
 
 Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details
 
 **Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
 
-| Analysis Type | Remap | Remove Mono | Remove Missing | ASC | Partition File | Notes | Tools |
-|-------------------|--------|--------------|----------------|-----|----------------|-------|-------|
-| SSM (invariant) | ⭐ | ✘ | ✅ | ✘ | ✘ | Default model | All |
-| SSM  | ⭐ | ✅ | ✅ | ✅ | ✘ | No invariant sites allowed | All |
-| SSA (invariant) | ⭐ | ✘ | ✅ | ✘ | ✅ | IQ-TREE accepts RAxML-style | All |
-| SSA | ⭐ | ✅ | ✅ | ✅ | ✅ | No invariant sites allowed | All |
-| FS (padding) | ✘ (destroy padding) | 🔘 | ✅ | ✘ | ✘ | Incompatible with ASC | All |
-| FS (override) | ⭐ | 🔘 | ✅ | 🔘 | 🔘 | Specify with MULTI`x`_MK| RAxML-NG |
+| Analysis Type        | Remap               | Remove Mono  | Remove Missing  | ASC | Partition File  | Notes                      | Tools    |
+| -------------------- | ------------------- | ------------ | --------------- | --- | --------------- | -------------------------- | -------- |
+| SSA (with invariant) | ⭐                  | ✘           | ✅              | ✘   | ✅             | Recommended model          | All      |
+| SSA                  | ⭐                  | ✅          | ✅              | ✅  | ✅             | No invariant sites allowed | All      |
+| SSM (with invariant) | ⭐                  | ✘           | ✅              | ✘   | ✘              | Default model              | All      |
+| SSM                  | ⭐                  | ✅          | ✅              | ✅  | ✘              | No invariant sites allowed | All      |
+| FS (padding)         | ✘ (destroy padding) | 🔘          | ✅              | ✘   | ✘              | Incompatible with ASC      | All      |
+| FS (override)        | ⭐                  | 🔘          | ✅              | 🔘  | 🔘             | Specify with MULTI`x`\_MK  | RAxML-NG |
 
 ---
 
@@ -104,8 +115,8 @@ Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.6501
 
 If you use **MorphoParse**, please cite:
 
-> Huang EJ (2025). *State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike*. 
-bioRxiv. [https://doi.org/10.1101/2025.04.22.650124](https://doi.org/10.1101/2025.04.22.650124)
+> Huang EJ (2025). *State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike*.
+> bioRxiv. [https://doi.org/10.1101/2025.04.22.650124](https://doi.org/10.1101/2025.04.22.650124)
 
 ## 🪪 License
 
