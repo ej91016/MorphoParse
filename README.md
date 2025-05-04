@@ -85,8 +85,8 @@ This will:
 > 📝 Note: For correct state space handling in IQ-TREE:
 > - Choose `PHYLIP` or `NEXUS` as output format
 > - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
->   - Defines partition & linked matrix files
->   - Assume IQ-TREE will be called from the same directory as MorphoParse—edit paths if needed
+>   - Defines partitions & linked matrix files
+>   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
 
 ---
 
