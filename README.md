@@ -63,6 +63,28 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 | `-t`, `--tnt`        | Generate SSA weights for TNT                                        |
 | `--version`          | Show version info and exit                                          |
 
+---
+## 📊 MorphoParse Flag Recommendations by Analysis Type
+
+- **SSA**: State-space-aware (the "correct" setup when doing just one analysis)
+- **SSM**: State-space-misspecified (a special case of False-space)
+- **False-space**: Purposely misspecify the state space
+
+Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details
+
+**Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
+
+| Analysis Type        | Remap               | Remove Mono  | Remove Missing  | ASC | Partition File  | Notes                      | Tools    |
+| -------------------- | ------------------- | ------------ | --------------- | --- | --------------- | -------------------------- | -------- |
+| SSA (with invariant) | ⭐                  | ✘           | ✅              | ✘   | ✅             | Recommended model          | All      |
+| SSA                  | ⭐                  | ✅          | ✅              | ✅  | ✅             | No invariant sites allowed | All      |
+| SSM (with invariant) | ⭐                  | ✘           | ✅              | ✘   | ✘              | Default model              | All      |
+| SSM                  | ⭐                  | ✅          | ✅              | ✅  | ✘              | No invariant sites allowed | All      |
+| FS (padding)         | ✘ (destroy padding) | 🔘          | ✅              | ✘   | ✘              | Incompatible with ASC      | All      |
+| FS (override)        | ⭐                  | 🔘          | ✅              | 🔘  | 🔘             | Specify with MULTI`x`\_MK  | RAxML-NG |
+
+---
+
 ## 🥪 Usage
 
 Example usage:
@@ -84,34 +106,13 @@ This will:
 Example data can be found in [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
 <br><br>
 
-📝 Note: Correct state space handling in IQ-TREE
+📝 Note: Proper SSA setup for IQ-TREE 
 - Choose `PHYLIP` or `NEXUS` as output format
 - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
   - Defines partitions & linked matrix files
   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
-- If analysis stop prematurely, remove ASC from the model
-  - This is not a partition issue but a IQ-TREE issue, likely due to small dataset
-
----
-
-## 📊 MorphoParse Flag Recommendations by Analysis Type
-
-- **SSA**: State-space-aware (the "correct" setup when doing just one analysis)
-- **SSM**: State-space-misspecified (a special case of False-space)
-- **False-space**: Purposely misspecify the state space
-
-Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details
-
-**Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
-
-| Analysis Type        | Remap               | Remove Mono  | Remove Missing  | ASC | Partition File  | Notes                      | Tools    |
-| -------------------- | ------------------- | ------------ | --------------- | --- | --------------- | -------------------------- | -------- |
-| SSA (with invariant) | ⭐                  | ✘           | ✅              | ✘   | ✅             | Recommended model          | All      |
-| SSA                  | ⭐                  | ✅          | ✅              | ✅  | ✅             | No invariant sites allowed | All      |
-| SSM (with invariant) | ⭐                  | ✘           | ✅              | ✘   | ✘              | Default model              | All      |
-| SSM                  | ⭐                  | ✅          | ✅              | ✅  | ✘              | No invariant sites allowed | All      |
-| FS (padding)         | ✘ (destroy padding) | 🔘          | ✅              | ✘   | ✘              | Incompatible with ASC      | All      |
-| FS (override)        | ⭐                  | 🔘          | ✅              | 🔘  | 🔘             | Specify with MULTI`x`\_MK  | RAxML-NG |
+- IQ-TREE may fail with ASC correction on small (partitioned) datasets.
+  - *Fix*: remove ASC from partitions with few characters.
 
 ---
 
