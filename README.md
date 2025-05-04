@@ -107,7 +107,7 @@ Example data can be found in [`examples/`](https://github.com/ej91016/MorphoPars
 <br><br>
 
 📝 Note: Proper SSA setup for IQ-TREE 
-- Choose `PHYLIP` or `NEXUS` as output format
+- Choose `PHYLIP` or `FASTA` as output format
 - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
   - Defines partitions & linked matrix files
   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
