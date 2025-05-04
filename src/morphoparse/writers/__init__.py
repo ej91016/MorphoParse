@@ -3,4 +3,4 @@ from .phylip_writer import write_phylip
 from .nexus_writer import write_nexus
 from .tnt_writer import write_tnt
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"

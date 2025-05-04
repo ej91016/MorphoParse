@@ -4,7 +4,7 @@ Handles command-line interface parsing.
 import argparse
 
 def get_args():
-    parser = argparse.ArgumentParser(description="MorphoParse v1.0.0: Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis.")
+    parser = argparse.ArgumentParser(description="MorphoParse v1.1.0: Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis.")
     parser.add_argument("-i", "--input", required=True, help="Input file")
     parser.add_argument("-o", "--output", help="Output prefix")
     parser.add_argument("-f", "--format", choices=['fasta','phylip','nexus','tnt'], default='phylip', 
@@ -30,6 +30,6 @@ def get_args():
         help="Generate SSA weight scheme for PAUP*")
     parser.add_argument("-t", "--tnt", action="store_true", 
         help="Generate SSA weight scheme for TNT")
-    parser.add_argument("--version", action="version", version="MorphoParse 1.0.0 (2025-04-21)")
+    parser.add_argument("--version", action="version", version="MorphoParse 1.1.0 (2025-05-04)")
 
     return parser.parse_args()
