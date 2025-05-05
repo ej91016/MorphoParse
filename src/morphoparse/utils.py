@@ -1,5 +1,5 @@
 import re
-
+import warnings
 def normalize_taxon_name(name):
     name = name.strip("\"'")
     return re.sub(r'[^A-Za-z0-9_.-]', '_', name)
@@ -46,3 +46,9 @@ def parse_taxon_line(line):
     name = normalize_taxon_name(raw_name)
     seq = clean_sequence(seq_part.replace(' ', '').replace('\t', ''))
     return name, seq
+
+def clean_warn(message, category=UserWarning):
+    original_format = warnings.formatwarning
+    warnings.formatwarning = lambda msg, cat, *_: f"⚠️  {cat.__name__}: {msg}\n"
+    warnings.warn(message, category)
+    warnings.formatwarning = original_format

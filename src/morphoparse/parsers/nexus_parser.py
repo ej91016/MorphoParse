@@ -1,6 +1,6 @@
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from morphoparse.utils import clean_sequence, normalize_taxon_name, parse_taxon_line
+from morphoparse.utils import clean_warn, parse_taxon_line
 import re
 
 def parse_nexus(file_path):
@@ -20,8 +20,10 @@ def parse_nexus(file_path):
         if ntax is not None and nchar is not None:
             break
 
-    if ntax is None or nchar is None:
-        raise ValueError("Could not find both ntax and nchar")
+    if ntax is None:
+        clean_warn("Could not find ntax in the file.")         
+    if nchar is None:
+        clean_warn("Could not find nchar in the file.")
 
     matrix_start = next((i for i, l in enumerate(lines) if l.strip().lower() == 'matrix'), None)
     if matrix_start is None:
@@ -38,10 +40,14 @@ def parse_nexus(file_path):
         if name:
             seq_data[name] = seq_data.get(name, '') + seq
 
-    if len(seq_data) != ntax:
-        raise ValueError(f"Expected {ntax} taxa, found {len(seq_data)}")
+    if ntax is not None and len(seq_data) != ntax:
+        clean_warn(f"Expected {ntax} taxa, found {len(seq_data)}")
+
     lengths = {len(seq) for seq in seq_data.values()}
-    if len(lengths) != 1 or nchar not in lengths:
-        raise ValueError("Inconsistent sequence lengths or mismatch with nchar")
+    if nchar is not None:
+        if len(lengths) != 1:
+            raise ValueError(f"Inconsistent sequence lengths: {lengths}")
+        if nchar not in lengths:
+            clean_warn(f"Expected {nchar} characters, found {len(seq)}")
 
     return [SeqRecord(Seq(seq), id=name) for name, seq in seq_data.items()]
