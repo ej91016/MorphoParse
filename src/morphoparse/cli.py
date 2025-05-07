@@ -5,7 +5,7 @@ def get_args():
     parser.add_argument("-i", "--input", required=True, help="Input file")
     parser.add_argument("-o", "--output", help="Output prefix")
     parser.add_argument("-f", "--format", choices=['fasta','phylip','nexus','tnt'], 
-        help="Input format")
+        help="Input format (default: auto-detect by extension/first line)")
     parser.add_argument("-g", "--out_format", choices=['fasta','phylip','nexus','tnt'], 
         help="Output format (default: same as input)")
     
