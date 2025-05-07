@@ -30,6 +30,6 @@ def get_args():
         help="Generate SSA weight scheme for PAUP*")
     parser.add_argument("--tnt", action="store_true", 
         help="Generate SSA weight scheme for TNT")
-    parser.add_argument("--version", action="version", version="MorphoParse 1.1.0 (2025-05-04)")
+    parser.add_argument("--version", action="version", version="MorphoParse 0.1.0-beta (2025-05-07)")
 
     return parser.parse_args()
