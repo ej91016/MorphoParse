@@ -5,17 +5,20 @@
 
 ## 🦣 Who Should Use MorphoParse
 MorphoParse is for you if:
-- You're struggling to input a morphological matrix into a phylogenetic software
-  - You know what's wrong, but want a tool to fix it automatically
-  - You don’t know what's wrong and need help identifying/resolving the issue
-- You need to convert between matrix formats (e.g., NEXUS → PHYLIP)
-- You want to ensure proper treatment of state space in phylogenetic inference
+- You're trying to input a **morphological matrix** into phylogenetic software and:
+  - You know what’s wrong, but want a tool to fix it automatically, or
+  - You don’t know what’s wrong and need help identifying and resolving issues
+- You need a tool in your analysis pipeline to:
+  - Standardize **matrix format**
+  - Standardize **polymorphic encodings**
+  - Convert between matrix formats
+- You want to **model with correct state space** in phylogenetic inference
 
 ## ✨ Features
-- Supports **FASTA**, **PHYLIP**, **NEXUS**, and **TNT** input formats
+- Supports **FASTA**, **PHYLIP**, **NEXUS**, and **TNT** formats
 - Normalizes taxon names by stripping quotes and replacing spaces/symbols with `_`
 - Modify data for better software compatibility
-  - Optional removal of **polymorphic encodings** (e.g., `{01}`, `[0,1]`, `(0/1)`) and replaces them with `?`
+  - Optional removal of **polymorphic encodings** (e.g., `{01}`, `[0 1]`) and replaces them with `?`
     - These will errors in **RAxML** and are ignored in **IQ-TREE**
   - Optional **state remapping** (e.g., `0,1,4,5` → `0,1,2,3`)
     - Required by some tools (e.g., **RAxML**)
@@ -58,7 +61,7 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 | -------------------- | ------------------------------------------------------------------- |
 | `-i`, `--input`      | Input morphological matrix (required)                               |
 | `-o`, `--output`     | Output prefix (default: input filename without extension)           |
-| `-f`, `--format`     | Input format: `fasta`, `phylip`, `nexus`, `tnt` (default: `phylip`) |
+| `-f`, `--format`     | Input format (fasta|phylip|nexus|tnt) (default: auto-detection)     |
 | `-g`, `--out_format` | Output format (default: same as input)                              |
 | `-k`, `--keep-poly`  | Keep polymorphic encodings (avoid if using maximum likelihood)      |
 | `-r`, `--remap`      | Enable all of: remove missing, remove mono, reorder states          |
@@ -106,7 +109,7 @@ This will:
 - Parse the **NEXUS** file: `example.nexus`
 - Produce output files in the current directory:
 
-  - `example_clean.phy`          – Cleaned and remapped data
+  - `example_mparse.phy`         – Parsed and polished data
   - `example_remap.txt`          – Remapping details
   - `example_raxml.models`       – ASC-corrected partitions
   - `example_paup_weights.txt`   – PAUP\* weights

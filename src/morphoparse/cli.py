@@ -4,8 +4,8 @@ def get_args():
     parser = argparse.ArgumentParser(description="MorphoParse v1.2.dev0: Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis.")
     parser.add_argument("-i", "--input", required=True, help="Input file")
     parser.add_argument("-o", "--output", help="Output prefix")
-    parser.add_argument("-f", "--format", choices=['fasta','phylip','nexus','tnt'], default='phylip', 
-        help="Input format (default: phylip)")
+    parser.add_argument("-f", "--format", choices=['fasta','phylip','nexus','tnt'], 
+        help="Input format")
     parser.add_argument("-g", "--out_format", choices=['fasta','phylip','nexus','tnt'], 
         help="Output format (default: same as input)")
     

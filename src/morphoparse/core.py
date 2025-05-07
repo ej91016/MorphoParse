@@ -2,15 +2,15 @@ from pathlib import Path
 from Bio.Seq import Seq
 from morphoparse.parsers import fasta_parser, phylip_parser, nexus_parser, tnt_parser
 from morphoparse.writers import fasta_writer, phylip_writer, nexus_writer, tnt_writer
-from morphoparse.utils import statenum, statemax, collapse_ranges
+from morphoparse.utils import statenum, statemax, collapse_ranges, detect_format
 from morphoparse.remap import remap_sparse_states
 from morphoparse.weight import write_paup_weights, write_tnt_weights
 from morphoparse.poly import Poly
 import math
 import os
 
-def parse_sequences(file_path, file_format, keep):
-    if os.path.getsize(file_path) == 0:
+def parse_sequences(input, file_format, keep):
+    if input.stat().st_size == 0:
         raise ValueError("Empty file")    
     parsers = {
         'fasta': fasta_parser.parse_fasta,
@@ -18,7 +18,7 @@ def parse_sequences(file_path, file_format, keep):
         'nexus': nexus_parser.parse_nexus,
         'tnt': tnt_parser.parse_tnt,
     }
-    return parsers[file_format](file_path, keep)
+    return parsers[file_format](input, keep)
 
 def write_file(records, output, out_format, poly):
     writers = {
@@ -106,15 +106,20 @@ def create_partition_file(records, poly, output_file, ver="raxml", asc_correctio
         write_tnt_weights(output_file, tnt_lines)
 
 def run_pipeline(args):
-    args.out_format = (args.out_format or args.format).lower()
+    input = Path(args.input)
+    if not input.exists():
+        raise FileNotFoundError(f"Input file not found: {input.absolute()}")
+    format = detect_format(input,args.format)
+    print(f"MorphoPase will parse {input.name} in {format.upper()} format")
+    out_format = (args.out_format or format).lower()
     keep_poly=args.keep_poly
-    records, poly_data = parse_sequences(args.input, args.format,keep_poly)
-    args.output = args.output or Path(args.input).with_suffix('')
+    records, poly_data = parse_sequences(input, format, keep_poly)
+    output = args.output or input.with_suffix('')
     remove_missing = args.remap or args.remove_missing
     remove_uninformative = args.remap or args.remove_mono
     reorder_states = args.remap or args.reorder
     if remove_missing or remove_uninformative or reorder_states:
-        logfile = f"{args.output}_remap.txt"
+        logfile = f"{output}_remap.txt"
         records, poly_data = remap_sparse_states(
             records, poly_data, logfile,
             remove_missing,
@@ -123,19 +128,20 @@ def run_pipeline(args):
             
         )
 
-    write_file(records, f"{args.output}_clean", args.out_format, poly_data)
+    write_file(records, f"{output}_mparse", out_format, poly_data)
     create_partition_file(
         records,
         poly_data,
-        args.output,
+        output,
         ver=args.software,
         asc_correction=args.asc,
         paup=args.paup,
         tnt=args.tnt,
         max=not reorder_states,
-        out_format=args.out_format
+        out_format=out_format
     )
 
+#this needs update
 def run_morphoparse(
     input_file,
     output_prefix,
@@ -166,7 +172,7 @@ def run_morphoparse(
             reorder_states
         )
 
-    write_file(records, f"{output_prefix}_clean", output_format)
+    write_file(records, f"{output_prefix}_mparse", output_format)
     create_partition_file(
         records,
         output_prefix,
