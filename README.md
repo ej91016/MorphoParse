@@ -1,5 +1,8 @@
 # MorphoParse
 
+![GitHub release](https://img.shields.io/github/v/release/ej91016/MorphoParse)
+![Python version](https://img.shields.io/pypi/pyversions/morphoparse)
+
 **A Python package and command-line tool for parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis**
 
 
@@ -49,11 +52,19 @@ pip install biopython
 
 ## 📦 Installation
 
-Install directly from GitHub:
+Install the latest **stable** or **pre-release version** (recommended):
+
+```bash
+pip install git+https://github.com/ej91016/MorphoParse.git@0.1.0-beta
+```
+
+Install the latest **development version** directly from GitHub:
 
 ```bash
 pip install git+https://github.com/ej91016/MorphoParse.git
 ```
+
+
 
 ## ⚙️ Command-Line Options
 
@@ -117,20 +128,21 @@ This will:
 <br><br>
 
 Example data can be found in [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
-<br><br>
 
-📝 Note: Proper SSA setup for IQ-TREE
+
+## 📝 Troubleshooting
+
+To ensure prpoer SSA setup for IQ-TREE:
 - Choose `PHYLIP` or `FASTA` as output format
 - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
   - Defines partitions & linked matrix files
   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
 - If you are running IQ-TREE2, replace MK with JC2 for the binary partition
-- If you see `ERROR: Cannot concatenate sub-alignments of different #states`, add the flag `-keep-ident`
+- If you see the error `ERROR: Cannot concatenate sub-alignments of different #states`, add the flag `-keep-ident`
 - If IQ-TREE end prematurely after showing initial log-Likelihood:
   - IQ-TREE appears to have trouble with `MK+ASC` (with or without `+G`)
   - *Fix (for now)*: Remove `+ASC` from the models (or avoid `-a` in MorphoParse)
   - Alternatively, consider using RAxML or RAxML-NG
-
 
 ---
 
