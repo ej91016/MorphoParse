@@ -55,7 +55,7 @@ pip install biopython
 Install the latest **stable** or **pre-release version** (recommended):
 
 ```bash
-pip install git+https://github.com/ej91016/MorphoParse.git@0.1.0b0
+pip install git+https://github.com/ej91016/MorphoParse.git@v0.1.0b0
 ```
 
 Install the latest **development version** directly from GitHub:
