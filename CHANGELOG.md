@@ -1,17 +1,16 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file
 
-## [1.1.0] - 2025-05-04
+## [0.1.0-beta] - 2025-05-07
+
+### Note
+- Start of formal version control
+
 ### Added
-- Proper IQ-TREE support
-- Note in README for IQ-TREE usage
-
-### Changed
-- `-n` changed to `-s`
-
-## [1.0.0] - 2025-04-21
-### Added
-- Initial release with support for RAxML, RAxML-NG, PAUP\*, TNT
-- Partition morphological matrices
-- State-space-aware weights (`ln(r)` scheme)
+- Pre-release with support for **RAxML**, **RAxML-NG**, **IQ-TREE**, **PAUP\***, and **TNT**
+- Robust parsing of morphological matrices:
+  - Support for polymorphic encodings
+  - Optional remapping of characters
+  - Partition characters based on state space
+- State-space-aware weighting using the `ln(r)` scheme
