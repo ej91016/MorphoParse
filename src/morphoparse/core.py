@@ -5,6 +5,7 @@ from morphoparse.writers import fasta_writer, phylip_writer, nexus_writer, tnt_w
 from morphoparse.utils import statenum, statemax, collapse_ranges
 from morphoparse.remap import remap_sparse_states
 from morphoparse.weight import write_paup_weights, write_tnt_weights
+from morphoparse.poly import Poly
 import math
 import os
 
@@ -91,8 +92,11 @@ def create_partition_file(records, poly, output_file, ver="raxml", asc_correctio
             iq_template = "MK+ASC+G" if asc_correction else "MK+G"
             f.write(",\n".join(f"      {iq_template}: m{state}" for state in sorted(state_groups)) + ";\n")
             f.write("end;\n")
+            poly_all = Poly(poly)
             for state, records in subset_data.items():
-                write_file(records, f"{output_file}_m{state}", out_format)
+                subset_indices = [pos - 1 for pos in state_groups[state]]
+                subset_poly = poly_all.subset(subset_indices) if poly else None
+                write_file(records, f"{output_file}_m{state}", out_format, subset_poly)
         else:
             f.write("\n".join(partition_content) + "\n")
 
