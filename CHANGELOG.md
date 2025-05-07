@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file
 
-## [0.1.0-beta] - 2025-05-07
+## [0.1.0b0] - 2025-05-07
 
 ### Note
 - Start of formal version control
