@@ -57,22 +57,22 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 
 ## ⚙️ Command-Line Options
 
-| Flag                 | Description                                                         |
-| -------------------- | ------------------------------------------------------------------- |
-| `-i`, `--input`      | Input morphological matrix (required)                               |
-| `-o`, `--output`     | Output prefix (default: input filename without extension)           |
-| `-f`, `--format`     | Input format (fasta|phylip|nexus|tnt) (default: auto-detection)     |
-| `-g`, `--out_format` | Output format (default: same as input)                              |
-| `-k`, `--keep-poly`  | Keep polymorphic encodings (avoid if using maximum likelihood)      |
-| `-r`, `--remap`      | Enable all of: remove missing, remove mono, reorder states          |
-| `--remove-missing`   | Remove characters with only `?` or `-`                              |
-| `--remove-mono`      | Remove characters with only one unambiguous state                   |
-| `--reorder`          | Renumber states to 0,1,... per site                                 |
-| `-a`, `--asc`        | Apply ASC correction to partition models                            |
-| `-s`, `--software`   | Software: `raxml`,`raxmlng`,`iqtree` (default: `raxml`)             |
-| `-p`, `--paup`       | Generate SSA weights for PAUP\*                                     |
-| `-t`, `--tnt`        | Generate SSA weights for TNT                                        |
-| `--version`          | Show version info and exit                                          |
+| Flag                 | Description                                                           |
+| -------------------- | -------------------------------------------------------------------   |
+| `-i`, `--input`      | Input morphological matrix (required)                                 |
+| `-o`, `--output`     | Output prefix (default: input filename without extension)             |
+| `-f`, `--format`     | Input format: `fasta`,`phylip`,`nexus`,`tnt` (default: auto-detection)|
+| `-g`, `--out_format` | Output format (default: same as input)                                |
+| `-k`, `--keep-poly`  | Keep polymorphic encodings (avoid if using maximum likelihood)        |
+| `-r`, `--remap`      | Enable all of: remove missing, remove mono, reorder states            |
+| `--remove-missing`   | Remove characters with only `?` or `-`                                |
+| `--remove-mono`      | Remove characters with only one unambiguous state                     |
+| `--reorder`          | Renumber states to 0,1,... per site                                   |
+| `-a`, `--asc`        | Apply ASC correction to partition models                              |
+| `-s`, `--software`   | Software: `raxml`,`raxmlng`,`iqtree` (default: `raxml`)               |
+| `-p`, `--paup`       | Generate SSA weights for PAUP\*                                       |
+| `-t`, `--tnt`        | Generate SSA weights for TNT                                          |
+| `--version`          | Show version info and exit                                            |
 
 ---
 ## 📊 MorphoParse Flag Recommendations by Analysis Type
