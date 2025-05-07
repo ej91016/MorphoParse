@@ -5,9 +5,9 @@
 
 ## 🦣 Who Should Use MorphoParse
 MorphoParse is for you if:
-- You're struggling to input a morphological matrix into phylogenetic software like PAUP, RAxML, BEAST2
+- You're struggling to input a morphological matrix into a phylogenetic software
   - You know what's wrong, but want a tool to fix it automatically
-  - You don’t know what's wrong, and would like help identifying and resolving the issue
+  - You don’t know what's wrong and need help identifying/resolving the issue
 - You need to convert between matrix formats (e.g., NEXUS → PHYLIP)
 - You want to ensure proper treatment of state space in phylogenetic inference
 
