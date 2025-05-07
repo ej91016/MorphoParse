@@ -1,7 +1,7 @@
 import argparse
 
 def get_args():
-    parser = argparse.ArgumentParser(description="MorphoParse v1.2.dev0: Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis.")
+    parser = argparse.ArgumentParser(description="MorphoParse v0.1.0-beta: Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis.")
     parser.add_argument("-i", "--input", required=True, help="Input file")
     parser.add_argument("-o", "--output", help="Output prefix")
     parser.add_argument("-f", "--format", choices=['fasta','phylip','nexus','tnt'], 
