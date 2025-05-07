@@ -101,17 +101,18 @@ Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.6501
 
 Example usage:
 ```bash
-morphoparse -i example.nexus -f nexus -g phylip -r -a -p
+morphoparse -i example.nexus -g phylip -r -a --paup
 ```
 
 This will:
 
-- Parse the **NEXUS** file: `example.nexus`
+- Parse `example.nexus` as a **NEXUS** file
+- Replace polymorphic encodings with `?`
 - Produce output files in the current directory:
 
   - `example_mparse.phy`         – Parsed and polished data
   - `example_remap.txt`          – Remapping details
-  - `example_raxml.models`       – ASC-corrected partitions
+  - `example_raxml.models`       – ASC-corrected partitions for RAxML
   - `example_paup_weights.txt`   – PAUP\* weights
 <br><br>
 

@@ -2,7 +2,8 @@ from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 from pathlib import Path
 
-def remap_sparse_states(records, poly, output_log_file, remove_missing=True, remove_uninformative=True, reorder_states=True):
+def remap_sparse_states(records, poly, output_log_file,
+                        remove_missing=True, remove_uninformative=True, reorder_states=True):
     nchar = len(records[0].seq)
     char_buffers = [[] for _ in records]
     remapped_sites = []
@@ -64,7 +65,9 @@ def remap_sparse_states(records, poly, output_log_file, remove_missing=True, rem
                 mapping_str = ', '.join(f"{k}->{v}" for k, v in mapping.items())
                 f.write(f"Site {site}: {mapping_str}\n")
             if removed_sites:
-                f.write(f"\nRemoved {len(removed_sites)} site(s) with no data or single state: {', '.join(map(str, removed_sites))}\n")
+                f.write(
+                    f"\nRemoved {len(removed_sites)} site(s) with no data or single state: "
+                    f"{', '.join(map(str, removed_sites))}\n")
         print(f"Remapping log written to: {Path(output_log_file).name}")
     else:
         print("No remapping or column removal was necessary.")
