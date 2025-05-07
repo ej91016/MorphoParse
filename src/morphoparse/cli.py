@@ -9,7 +9,7 @@ def get_args():
     parser.add_argument("-g", "--out_format", choices=['fasta','phylip','nexus','tnt'], 
         help="Output format (default: same as input)")
     
-    parser.add_argument("-k", "--keep-poly", action="store_true", 
+    parser.add_argument("-p", "--poly", action="store_true", 
                     help="Keep polymoprhic encodings (avoid if using maximum likelihood)")
     parser.add_argument("-r", "--remap", action="store_true",
                     help="Remap characters: removes + reorder")
@@ -26,9 +26,9 @@ def get_args():
     parser.add_argument("-s", "--software", default='raxml', choices=['raxml','raxmlng','iqtree'],
         help="Indicate program to format for (default: RAxML)")
 
-    parser.add_argument("-p", "--paup", action="store_true", 
+    parser.add_argument("--paup", action="store_true", 
         help="Generate SSA weight scheme for PAUP*")
-    parser.add_argument("-t", "--tnt", action="store_true", 
+    parser.add_argument("--tnt", action="store_true", 
         help="Generate SSA weight scheme for TNT")
     parser.add_argument("--version", action="version", version="MorphoParse 1.1.0 (2025-05-04)")
 

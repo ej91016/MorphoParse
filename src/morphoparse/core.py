@@ -112,7 +112,7 @@ def run_pipeline(args):
     format = detect_format(input,args.format)
     print(f"MorphoPase will parse {input.name} in {format.upper()} format")
     out_format = (args.out_format or format).lower()
-    keep_poly=args.keep_poly
+    keep_poly=args.poly
     records, poly_data = parse_sequences(input, format, keep_poly)
     output = args.output or input.with_suffix('')
     remove_missing = args.remap or args.remove_missing
@@ -121,7 +121,9 @@ def run_pipeline(args):
     if remove_missing or remove_uninformative or reorder_states:
         logfile = f"{output}_remap.txt"
         records, poly_data = remap_sparse_states(
-            records, poly_data, logfile,
+            records,
+            poly_data,
+            logfile,
             remove_missing,
             remove_uninformative,
             reorder_states,
@@ -145,8 +147,9 @@ def run_pipeline(args):
 def run_morphoparse(
     input_file,
     output_prefix,
-    input_format='phylip',
+    input_format=None,
     output_format=None,
+    poly=False,
     remap=False,
     remove_missing=False,
     remove_mono=False,
@@ -156,8 +159,13 @@ def run_morphoparse(
     paup=False,
     tnt=False
 ):
+    input = Path(input_file)
+    if not input.exists():
+        raise FileNotFoundError(f"Input file not found: {input.absolute()}")
+    format = detect_format(input,input_format)
+    print(f"MorphoPase will parse {input.name} in {format.upper()} format")
     output_format = (output_format or input_format).lower()
-    records = parse_sequences(input_file, input_format)
+    records, poly_data = parse_sequences(input_file, input_format, poly)
     remove_missing = remap or remove_missing
     remove_uninformative = remap or remove_mono
     reorder_states = remap or reorder
@@ -166,15 +174,17 @@ def run_morphoparse(
         logfile = f"{output_prefix}_remap.log"
         records = remap_sparse_states(
             records,
+            poly_data,
             logfile,
             remove_missing,
             remove_uninformative,
             reorder_states
         )
 
-    write_file(records, f"{output_prefix}_mparse", output_format)
+    write_file(records, f"{output_prefix}_mparse", output_format, poly_data)
     create_partition_file(
         records,
+        poly_data,
         output_prefix,
         ver=software,
         asc_correction=asc,
