@@ -1,7 +1,7 @@
 # MorphoParse
 
-![GitHub release](https://img.shields.io/github/v/release/ej91016/MorphoParse)
-![Python version](https://img.shields.io/pypi/pyversions/morphoparse)
+![GitHub release](https://img.shields.io/github/tag/ej91016/MorphoParse.svg)
+
 
 **A Python package and command-line tool for parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis**
 
