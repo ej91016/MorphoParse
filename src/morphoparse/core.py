@@ -1,6 +1,3 @@
-"""
-Orchestrates high-level logic: parsing, remapping, writing, partitioning.
-"""
 from pathlib import Path
 from Bio.Seq import Seq
 from morphoparse.parsers import fasta_parser, phylip_parser, nexus_parser, tnt_parser
@@ -11,7 +8,7 @@ from morphoparse.weight import write_paup_weights, write_tnt_weights
 import math
 import os
 
-def parse_sequences(file_path, file_format):
+def parse_sequences(file_path, file_format, keep):
     if os.path.getsize(file_path) == 0:
         raise ValueError("Empty file")    
     parsers = {
@@ -20,23 +17,23 @@ def parse_sequences(file_path, file_format):
         'nexus': nexus_parser.parse_nexus,
         'tnt': tnt_parser.parse_tnt,
     }
-    return parsers[file_format](file_path)
+    return parsers[file_format](file_path, keep)
 
-def write_file(records, output, out_format):
+def write_file(records, output, out_format, poly):
     writers = {
         'fasta': fasta_writer.write_fasta,
         'phylip': phylip_writer.write_phylip,
         'nexus': nexus_writer.write_nexus,
         'tnt': tnt_writer.write_tnt,
     }
-    writers[out_format](records, output)
+    writers[out_format](records, output, poly)
 
-def create_partition_file(records, output_file, ver="raxml", asc_correction=False, out_format="phylip",
+def create_partition_file(records, poly, output_file, ver="raxml", asc_correction=False, out_format="phylip",
                           paup=False, tnt=False, max=False, ):
 
     state_groups = {}
     for pos in range(len(records[0].seq)):
-        r = statemax(records, pos) if max else statenum(records, pos)
+        r = statemax(records, pos, poly) if max else statenum(records, pos, poly)
         state_groups.setdefault(r, []).append(pos + 1)
 
     suffix_map = {
@@ -106,24 +103,26 @@ def create_partition_file(records, output_file, ver="raxml", asc_correction=Fals
 
 def run_pipeline(args):
     args.out_format = (args.out_format or args.format).lower()
-    records = parse_sequences(args.input, args.format)
+    keep_poly=args.keep_poly
+    records, poly_data = parse_sequences(args.input, args.format,keep_poly)
     args.output = args.output or Path(args.input).with_suffix('')
     remove_missing = args.remap or args.remove_missing
     remove_uninformative = args.remap or args.remove_mono
     reorder_states = args.remap or args.reorder
-
     if remove_missing or remove_uninformative or reorder_states:
         logfile = f"{args.output}_remap.txt"
-        records = remap_sparse_states(
-            records, logfile,
+        records, poly_data = remap_sparse_states(
+            records, poly_data, logfile,
             remove_missing,
             remove_uninformative,
-            reorder_states
+            reorder_states,
+            
         )
 
-    write_file(records, f"{args.output}_clean", args.out_format)
+    write_file(records, f"{args.output}_clean", args.out_format, poly_data)
     create_partition_file(
         records,
+        poly_data,
         args.output,
         ver=args.software,
         asc_correction=args.asc,

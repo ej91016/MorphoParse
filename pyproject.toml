@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "MorphoParse"
-version = "1.1.0"
+version = "1.2.dev0"
 description = "Parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis."
 authors = ["EJ Huang <ejhuang91016@gmail.com>"]
 readme = "README.md"

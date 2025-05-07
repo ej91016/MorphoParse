@@ -1,14 +1,16 @@
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from morphoparse.utils import clean_warn, parse_taxon_line
+from morphoparse.utils import clean_warn, parse_taxon_line, clean_sequence, clean_seq_keep_poly
 import re
 
-def parse_tnt(file_path):
+def parse_tnt(file_path, keep=False):
     with open(file_path, 'r') as f:
         lines = [line.strip() for line in f if line.strip()]
 
     seq_data = {}
-    ntax=seq_len=None
+    poly_data = {} if keep else None
+    ntax = seq_len = None
+
     try:
         i = next(i for i, line in enumerate(lines) if line.lower().startswith("xread"))
     except StopIteration:
@@ -42,9 +44,16 @@ def parse_tnt(file_path):
         if line.startswith('['):
             i += 1
             continue
-        name, seq = parse_taxon_line(line)
+        name, raw_seq = parse_taxon_line(line)
         if name:
-            seq_data[name] = seq_data.get(name, '') + seq
+            if keep:
+                clean_seq, poly = clean_seq_keep_poly(raw_seq)
+                seq_data[name] = seq_data.get(name, '') + clean_seq
+                poly_data[name] = poly_data.get(name, {})
+                offset = len(seq_data[name]) - len(clean_seq)
+                poly_data[name].update({i + offset: s for i, s in poly.items()})
+            else:
+                seq_data[name] = seq_data.get(name, '') + clean_sequence(raw_seq)
         i += 1
 
     if not seq_data:
@@ -58,4 +67,5 @@ def parse_tnt(file_path):
     if seq_len not in lengths:
         clean_warn(f"Expected {seq_len} characters, found {list(lengths)[0]}")
 
-    return [SeqRecord(Seq(seq), id=name) for name, seq in seq_data.items()]
+    records = [SeqRecord(Seq(seq), id=name) for name, seq in seq_data.items()]
+    return records, poly_data

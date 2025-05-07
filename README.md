@@ -2,17 +2,24 @@
 
 **A Python package and command-line tool for parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis**
 
+
+## 🦣 Who Should Use MorphoParse
+MorphoParse is for you if:
+- You're struggling to input a morphological matrix into phylogenetic software like PAUP, RAxML, BEAST2
+  - You know what's wrong, but want a tool to fix it automatically
+  - You don’t know what's wrong, and would like help identifying and resolving the issue
+- You need to convert between matrix formats (e.g., NEXUS → PHYLIP)
+- You want to ensure proper treatment of state space in phylogenetic inference
+
 ## ✨ Features
-
 - Supports **FASTA**, **PHYLIP**, **NEXUS**, and **TNT** input formats
-- Removes **polymorphic encodings** (e.g., `{01}`, `[0,1]`, `(0/1)`) and replaces them with `?`
-
-  - These cause errors in **RAxML** and are ignored in **IQ-TREE**
 - Normalizes taxon names by stripping quotes and replacing spaces/symbols with `_`
-- Optional **state remapping** (e.g., `0,1,4,5` → `0,1,2,3`)
-
-  - Required by some tools (e.g., **RAxML**)
-- Optional removal of uninformative or missing-only characters
+- Modify data for better software compatibility
+  - Optional removal of **polymorphic encodings** (e.g., `{01}`, `[0,1]`, `(0/1)`) and replaces them with `?`
+    - These will errors in **RAxML** and are ignored in **IQ-TREE**
+  - Optional **state remapping** (e.g., `0,1,4,5` → `0,1,2,3`)
+    - Required by some tools (e.g., **RAxML**)
+  - Optional removal of uninformative or missing-only characters
 - Outputs clean alignment in selected format
 - Generates **partition model files** compatible with:
   - RAxML
@@ -53,6 +60,7 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 | `-o`, `--output`     | Output prefix (default: input filename without extension)           |
 | `-f`, `--format`     | Input format: `fasta`, `phylip`, `nexus`, `tnt` (default: `phylip`) |
 | `-g`, `--out_format` | Output format (default: same as input)                              |
+| `-k`, `--keep-poly`  | Keep polymorphic encodings (avoid if using maximum likelihood)      |
 | `-r`, `--remap`      | Enable all of: remove missing, remove mono, reorder states          |
 | `--remove-missing`   | Remove characters with only `?` or `-`                              |
 | `--remove-mono`      | Remove characters with only one unambiguous state                   |
@@ -83,6 +91,7 @@ Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.6501
 | FS (padding)         | ✘ (destroy padding) | 🔘          | ✅              | ✘   | ✘              | Incompatible with ASC      | All      |
 | FS (override)        | ⭐                  | 🔘          | ✅              | 🔘  | 🔘             | Specify with MULTI`x`\_MK  | RAxML-NG |
 
+
 ---
 
 ## 🥪 Usage
@@ -106,15 +115,18 @@ This will:
 Example data can be found in [`examples/`](https://github.com/ej91016/MorphoParse/tree/main/examples)
 <br><br>
 
-📝 Note: Proper SSA setup for IQ-TREE 
+📝 Note: Proper SSA setup for IQ-TREE
 - Choose `PHYLIP` or `FASTA` as output format
 - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
   - Defines partitions & linked matrix files
   - Assume IQ-TREE will be called from the same directory as MorphoParse — edit paths if needed
+- If you are running IQ-TREE2, replace MK with JC2 for the binary partition
+- If you see `ERROR: Cannot concatenate sub-alignments of different #states`, add the flag `-keep-ident`
 - If IQ-TREE end prematurely after showing initial log-Likelihood:
   - IQ-TREE appears to have trouble with `MK+ASC` (with or without `+G`)
   - *Fix (for now)*: Remove `+ASC` from the models (or avoid `-a` in MorphoParse)
   - Alternatively, consider using RAxML or RAxML-NG
+
 
 ---
 

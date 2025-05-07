@@ -7,16 +7,62 @@ def normalize_taxon_name(name):
 def clean_sequence(sequence):
     return re.sub(r'[\(\[\{].*?[\)\]\}]', '?', sequence)
 
-def statenum(records, position):
-    return len({r.seq[position].upper() for r in records if r.seq[position] not in '-?'})
+def clean_seq_keep_poly(sequence):
+    clean_seq = clean_sequence(sequence)
+    char_index = 0
+    poly_dict = {}
 
-def statemax(records, position):
-    states = {
-        int(c) for r in records 
-        if (c := r.seq[position].upper()) not in '-?'
-        and c.isdigit()
-    }
-    return max(states) + 1 if states else 0
+    i = 0
+    while i < len(sequence):
+        if sequence[i] in '{[(':
+            closing = {'{': '}', '[': ']', '(': ')'}[sequence[i]]
+            j = i + 1
+            while j < len(sequence) and sequence[j] != closing:
+                j += 1
+            if j == len(sequence):
+                raise ValueError("Unmatched bracket in sequence")
+
+            states = set(c for c in sequence[i+1:j] if c.isdigit())
+            if states:
+                poly_dict[char_index] = states
+            i = j + 1
+        else:
+            i += 1
+        char_index += 1
+
+    return clean_seq, poly_dict
+
+
+def statenum(records, position, poly=None):
+    states = set()
+    for r in records:
+        c = r.seq[position].upper()
+
+
+        if poly and r.id in poly and position in poly[r.id]:
+            states.update(poly[r.id][position])
+        
+
+        elif c not in '-?':
+            states.add(c)
+
+    return len(states)
+
+
+def statemax(records, position, poly=None):
+    states = set()
+    for r in records:
+        c = r.seq[position].upper()
+
+        if poly and r.id in poly and position in poly[r.id]:
+            states.update({s for s in poly[r.id][position] if s.isdigit()})
+
+
+        elif c not in '-?' and c.isdigit():
+            states.add(c)
+
+    return max(map(int, states)) + 1 if states else 0
+
 
 def collapse_ranges(positions):
     positions = sorted(positions)
@@ -32,7 +78,6 @@ def collapse_ranges(positions):
     return ranges
 
 def parse_taxon_line(line):
-
     if line[0] in {'"', "'"}:
         match = re.match(r'(["\'])(.*?)\1\s+(.*)', line)
         raw_name, seq_part = match.groups()[1:] if match else (None, None)
@@ -44,8 +89,8 @@ def parse_taxon_line(line):
         return None, None
 
     name = normalize_taxon_name(raw_name)
-    seq = clean_sequence(seq_part.replace(' ', '').replace('\t', ''))
-    return name, seq
+    raw_seq = seq_part.replace(' ', '').replace('\t', '')
+    return name, raw_seq
 
 def clean_warn(message, category=UserWarning):
     original_format = warnings.formatwarning
