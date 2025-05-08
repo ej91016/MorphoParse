@@ -1,7 +1,9 @@
 # MorphoParse
 
 ![GitHub release](https://img.shields.io/github/tag/ej91016/MorphoParse.svg)
-
+<p align="left">
+  <img src="MP_logo.png" alt="MorphoParse Logo" width="300"/>
+</p>
 
 **A Python package and command-line tool for parsing, partitioning, and weighting morphological character matrices for phylogenetic analysis**
 
@@ -132,7 +134,7 @@ Example data can be found in [`examples/`](https://github.com/ej91016/MorphoPars
 
 ## 📝 Troubleshooting
 
-To ensure prpoer SSA setup for IQ-TREE:
+To ensure proper SSA setup for IQ-TREE:
 - Choose `PHYLIP` or `FASTA` as output format
 - Use only `-p *_iqtree.nex` in IQ-TREE (not `-s`)
   - Defines partitions & linked matrix files
