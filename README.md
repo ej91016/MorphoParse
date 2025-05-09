@@ -4,7 +4,7 @@
 
 ![GitHub release](https://img.shields.io/github/tag/ej91016/MorphoParse.svg)
 <p align="left">
-  <img src="MP_logo.png" alt="MorphoParse Logo" width="300"/>
+  <img src="mp_logo.png" alt="MorphoParse Logo" width="300"/>
 </p>
 
 ## 🦣 Who Should Use MorphoParse
