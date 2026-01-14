@@ -93,7 +93,6 @@ pip install git+https://github.com/ej91016/MorphoParse.git
 - **SSM**: State-space-misspecified (a special case of False-space)
 - **False-space**: Purposely misspecify the state space
 
-Please refer to [Huang (2025, preprint)](https://doi.org/10.1101/2025.04.22.650124) for more details
 
 **Legend:** ✅ Required  ⭐ Recommended  🔘 Optional  ✘ No
 
@@ -146,13 +145,6 @@ To ensure proper SSA setup for IQ-TREE:
   - Alternatively, consider using RAxML or RAxML-NG
 
 ---
-
-## 📖 Citation
-
-If you use **MorphoParse**, please cite:
-
-> Huang EJ (2025). *State Space Misspecification in Morphological Phylogenetics: A Pitfall for Models and Parsimony Alike*.
-> bioRxiv. [https://doi.org/10.1101/2025.04.22.650124](https://doi.org/10.1101/2025.04.22.650124)
 
 ## 🪪 License
 
