@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file
 
+
+## [v1.0.0] - 2026-10-30
+
+### Note
+- Associated publication in final stages
+
 ## [v0.1.0b0] - 2025-05-07
 
 ### Note
